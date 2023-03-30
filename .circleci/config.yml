@@ -150,6 +150,30 @@ jobs:
           stackID: "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
       - destroy-environment:
           stackID: "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}"
+          
+  configure-infrastructure:
+    docker:
+        - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          	fingerprints: ["3b:8f:74:58:a8:a3:e6:21:86:6b:34:c6:ec:78:0f:39"] 
+
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible
+            apk add --update awscli
+            apk add --update tar
+            apk add --update gzip
+      - run:
+          name: Configure server
+          command: |
+            cd .circleci/ansible
+            ansible-playbook -i inventory.txt configure-server.yml
+      # Here's where you will add some code to rollback on failure 
 
 workflows:
   default:
@@ -169,3 +193,5 @@ workflows:
           filters:
             branches:
               only: [test-feature-branch]
+      - configure_infrastructure:
+          requires: [deploy-infrastructure]
