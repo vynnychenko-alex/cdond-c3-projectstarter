@@ -117,7 +117,7 @@ jobs:
     steps:
       - checkout
       - run: sudo apt-get install tar -y
-      - run: sudo apt-get install gz -y
+      - run: sudo apt-get install gzip -y
       - run:
           name: Ensure back-end infrastructure exists
           command: |
