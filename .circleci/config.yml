@@ -145,7 +145,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - .circleci/ansible/inventory.txt
+            - /project/.circleci/ansible/inventory.txt
       - destroy-environment:
           stackID: "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
       - destroy-environment:
@@ -174,7 +174,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            cd .circleci/ansible
+            cd project/.circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
       # Here's where you will add some code to rollback on failure 
 
