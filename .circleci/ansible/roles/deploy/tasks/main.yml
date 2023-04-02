@@ -8,7 +8,7 @@
 - name: Install dependencies
   become: yes
   apt: 
-    name: ['nodejs', 'npm']
+    name: ['npm']
     state: latest
 
 
