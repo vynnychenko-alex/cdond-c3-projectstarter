@@ -16,7 +16,7 @@
   apt: 
     name: ['npm']
     state: latest
-    
+
 - name: Install pm2
   become: yes
   npm:
@@ -28,5 +28,5 @@
 
 - name: Start the app
   shell: |
-      pm2 stop default
+      pm2 delete all
       pm2 start npm -- start
