@@ -28,8 +28,6 @@
 
 - name: Start the app
   become: yes
-  become_user: root
-  become_method: su
   shell: |
-      pm2 delete all
-      pm2 start npm -- start
+      sudo pm2 stop default
+      sudo pm2 start npm -- start
