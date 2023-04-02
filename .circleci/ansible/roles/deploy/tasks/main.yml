@@ -3,8 +3,9 @@
   unarchive:
     src: /root/project/backend.tar.gz
     dest: /home/ubuntu/
+
 - name: Start the app
-    shell: |
+  shell: |
       npm install
       cd /home/ubuntu/backend
       pm2 stop default
