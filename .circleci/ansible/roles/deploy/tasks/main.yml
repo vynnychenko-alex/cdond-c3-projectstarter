@@ -13,6 +13,7 @@
     become: true
     shell : |
         cd /home/ubuntu/
+          sudo su
           echo ENVIRONMENT=production >> "backend/.env"
           echo NODE_ENV=production >> "backend/.env"
           echo TYPEORM_CONNECTION=postgres >> "backend/.env"
