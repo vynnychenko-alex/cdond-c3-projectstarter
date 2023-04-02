@@ -16,6 +16,13 @@
   apt: 
     name: ['npm']
     state: latest
+    
+- name: Install pm2
+  become: yes
+  npm:
+    name: pm2
+    global: yes
+    production: yes
 
 
 
