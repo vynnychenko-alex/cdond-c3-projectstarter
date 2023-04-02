@@ -1,8 +1,9 @@
 ---
 - name: Extract artifact
   unarchive:
-    src: /root/project/backend.tar.gz
-    dest: /home/ubuntu/
+    become: yes
+    src: files/artifact.tar.gz
+    dest: .
 
 - name: Start the app
   shell: |
