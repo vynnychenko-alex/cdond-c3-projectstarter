@@ -1,4 +1,10 @@
 ---
+- name: Update and upgrade packages
+  become: yes
+  apt:
+    upgrade: yes
+    cache_valid_time: 86400
+
 - name: Extract artifact
   become: yes
   unarchive:
