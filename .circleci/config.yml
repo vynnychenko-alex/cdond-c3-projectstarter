@@ -36,7 +36,7 @@ commands:
             if [ "$SUCCESS" == 1 ]
             then
               cd ~/project/backend
-              npm install
+              sudo apt install npm
               npm run migrations:revert
             fi 
 
