@@ -11,6 +11,7 @@
         tar xvzf artifact.tar.gz -C .
 
   - name: Install NPM
+    become: yes
     apt:
       pkg:
         - npm
