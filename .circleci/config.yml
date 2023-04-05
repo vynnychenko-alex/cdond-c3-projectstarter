@@ -32,11 +32,13 @@ commands:
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
             SUCCESS = $(curl --insecure https://kvdb.io/4az6DkZmBwBShpiydB94aw/migration_343dadd<< parameters.workflow_id >>)
-            if [ "$SUCCESS" = '1' ]; then
+            bash
+            if (( $SUCCESS == 1 ));
+            then
               cd ~/project/backend
               npm install
               npm run migration:revert
-            fi
+            fi 
 
 jobs:
   build-frontend:
@@ -315,6 +317,7 @@ jobs:
           name: Install dependencies
           command: |
             apk add python curl
+            apk add bash
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip
             ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
