@@ -9,3 +9,12 @@
     shell : |
         cd /home/ubuntu/
         tar xvzf artifact.tar.gz -C .
+        
+  - name: Install and run server
+    become: yes
+    shell : |
+        apt update
+        apt install npm
+        npm install pm2 -g
+        pm2 stop default
+        pm2 start npm -- start
