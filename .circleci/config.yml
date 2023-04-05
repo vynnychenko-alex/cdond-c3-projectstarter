@@ -31,7 +31,7 @@ commands:
           when: on_fail
           command: |
             apk add --update curl
-            SUCCESS=$(curl -k https://kvdb.io/8c4Dfsm42ZTgr2ZUnm9Hbj/migration_<<parameters.workflow_id>>)
+            SUCCESS=$(curl -k https://kvdb.io/4az6DkZmBwBShpiydB94aw/migration_343dadd)
             echo $SUCCESS
             if(( $SUCCESS==1 )); 
             then
