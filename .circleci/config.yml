@@ -37,6 +37,7 @@ commands:
             then
               cd ~/project/backend
               sudo apt install npm
+              npm i
               npm run migrations:revert
             fi 
 
