@@ -30,13 +30,14 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS = $(curl --insecure https://kvdb.io/4az6DkZmBwBShpiydB94aw/migration_343dadd<< parameters.workflow_id >>)
-            if [ "$SUCCESS" = "1" ]; 
+            apk add --update curl
+            SUCCESS=$(curl -k https://kvdb.io/8c4Dfsm42ZTgr2ZUnm9Hbj/migration_<<parameters.workflow_id>>)
+            echo $SUCCESS
+            if(( $SUCCESS==1 )); 
             then
-              cd ~/project/backend
-              npm install
-              npm run migration:revert;
+             cd ~/project/backend
+             npm install
+             npm run migration:revert
             fi
 
 jobs:
@@ -309,7 +310,7 @@ jobs:
 
   smoke-test:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: python:3.8-alpine
     steps:
       - checkout
       - run:
