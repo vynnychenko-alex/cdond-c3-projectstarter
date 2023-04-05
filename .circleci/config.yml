@@ -32,7 +32,6 @@ commands:
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
             SUCCESS = $(curl --insecure https://kvdb.io/4az6DkZmBwBShpiydB94aw/migration_343dadd<< parameters.workflow_id >>)
-            bash
             if (( $SUCCESS == 1 ));
             then
               cd ~/project/backend
@@ -310,17 +309,15 @@ jobs:
 
   smoke-test:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: cimg/aws:2023.03
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: |
-            apk add python curl
-            apk add bash
-            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-            unzip awscli-bundle.zip
-            ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+      # - run:
+      #     name: Install dependencies
+      #     command: |
+      #       curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+      #       unzip awscli-bundle.zip
+      #       ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
       - run:
           name: Get backend url and Backend smoke test
           command: |
