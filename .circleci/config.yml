@@ -37,7 +37,6 @@ commands:
             then
               cd ~/project/backend
               npm install
-              npm audit fix --force
               npm run migrations:revert
             fi 
 
@@ -311,15 +310,15 @@ jobs:
 
   smoke-test:
     docker:
-      - image: cimg/aws:2023.03
+      - image: cimg/base:2023.04
     steps:
       - checkout
-      # - run:
-      #     name: Install dependencies
-      #     command: |
-      #       curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-      #       unzip awscli-bundle.zip
-      #       ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+      - run:
+          name: Install dependencies
+          command: |
+            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+            unzip awscli-bundle.zip
+            ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
       - run:
           name: Get backend url and Backend smoke test
           command: |
