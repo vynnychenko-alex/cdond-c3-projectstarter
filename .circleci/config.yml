@@ -198,8 +198,6 @@ jobs:
             then
               curl https://kvdb.io/4az6DkZmBwBShpiydB94aw/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
             fi
-      - destroy-environment:
-          stackID: "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
 
   deploy-frontend:
     docker:
@@ -297,8 +295,8 @@ workflows:
               only: [test-feature-branch]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
-      #- run-migrations:
-      #    requires: [deploy-infrastructure]
+      - run-migrations:
+          requires: [deploy-infrastructure]
       - deploy-frontend:
           requires: [configure-infrastructure]
       - deploy-backend:
