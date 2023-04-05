@@ -26,6 +26,7 @@ commands:
         description: Workflow ID
         type: string     
     steps:
+      - checkout
       - run:
           name: Revert migrations
           when: on_fail
