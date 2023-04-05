@@ -36,8 +36,7 @@ commands:
             if [ "$SUCCESS" == 1 ]
             then
               cd ~/project/backend
-              sudo apt install npm
-              npm i
+              npm install
               npm run migrations:revert
             fi 
 
@@ -317,9 +316,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-            unzip awscli-bundle.zip
-            ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+            sudo apt update
+            sudo apt install -y awscli
       - run:
           name: Get backend url and Backend smoke test
           command: |
