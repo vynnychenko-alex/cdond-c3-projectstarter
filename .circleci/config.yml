@@ -32,7 +32,7 @@ commands:
           when: on_fail
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS=$(curl --insecure https://kvdb.io/4az6DkZmBwBShpiydB94aw/migration_343dadd)
+            SUCCESS=$(curl --insecure https://kvdb.io/4az6DkZmBwBShpiydB94aw/migration_343dadd<< parameters.workflow_id >>)
             if [ "$SUCCESS" == 1 ]
             then
               cd ~/project/backend
@@ -311,18 +311,15 @@ jobs:
 
   smoke-test:
     docker:
-      - image: cimg/base:2023.04
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - run:
           name: Install dependencies
           command: |
-            sudo apt update
-            sudo apt install python3.10-venv
-            sudo ln -s /usr/bin/python3 /usr/bin/python
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip
-            sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+            ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
       - run:
           name: Get backend url and Backend smoke test
           command: |
