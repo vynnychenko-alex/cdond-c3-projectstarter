@@ -377,6 +377,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install dependencies
+          command: |
+            sudo apt update
+            sudo apt install -y awscli
+      - run:
           name: Get old stack workflow id
           command: |
             export OldWorkflowID=$(aws cloudformation \
