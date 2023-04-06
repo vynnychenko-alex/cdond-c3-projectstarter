@@ -339,14 +339,33 @@ jobs:
             echo ${URL} 
             if curl -s ${URL} | grep "Welcome"
             then
-              return 1
+              exit 0
             else
-              return 1
+              exit 1
             fi
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
       - revert-migrations:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}" 
+    
+    cloudfront-update:
+      docker:
+        - image: cimg/aws:2023.04
+      steps:
+        - checkout
+        - run:
+            name: Install dependencies
+            command: |
+              # your code here
+        - run:
+            name: Update cloudfront distribution
+            command: |
+              aws cloudformation deploy \
+                --template-file .circleci/files/cloudfront.yml \
+                --stack-name InitialStack \
+                --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
+                --tags project=udapeople
+        # Here's where you will add some code to rollback on failure 
 
 workflows:
   default:
