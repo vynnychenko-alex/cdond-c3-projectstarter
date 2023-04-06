@@ -400,3 +400,5 @@ workflows:
           requires: [run-migrations]
       - smoke-test:
           requires: [deploy-frontend]
+      cloudfront-update:
+          requires: [smoke-test]
