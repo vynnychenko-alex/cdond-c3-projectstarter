@@ -391,7 +391,7 @@ jobs:
             echo OldWorkflowID: "${OldWorkflowID}"
             echo CIRCLE_WORKFLOW_ID "${CIRCLE_WORKFLOW_ID:0:7}"
 
-            if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "${OldWorkflowID}" ]]
+            if [[ "${CIRCLE_WORKFLOW_ID}" != "${OldWorkflowID}" ]]
             then
               echo ${OldWorkflowID}
               aws s3 rm s3://udapeople-${OldWorkflowID} --recursive
@@ -430,5 +430,5 @@ workflows:
       #     requires: [deploy-frontend]
       # - cloudfront-update:
       #     requires: [smoke-test]
-      - cleanup
-          # requires: [cloudfront-update]
+       - cleanup
+      #     requires: [cloudfront-update]
