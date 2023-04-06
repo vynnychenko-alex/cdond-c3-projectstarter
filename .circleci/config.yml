@@ -353,6 +353,8 @@ jobs:
         - image: cimg/aws:2023.04
       steps:
         - checkout
+        - attach_workspace:
+            at: ~/
         - run:
             name: Install dependencies
             command: |
@@ -365,7 +367,10 @@ jobs:
                 --stack-name InitialStack \
                 --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
                 --tags project=udapeople
-        # Here's where you will add some code to rollback on failure 
+        - destroy-environment:
+            workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
+        - revert-migrations:
+            workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}" 
 
 workflows:
   default:
