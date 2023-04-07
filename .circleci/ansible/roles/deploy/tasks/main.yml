@@ -41,6 +41,7 @@
         rm -rf node_exporter-1.0.1.linux-amd64.tar.gz node_exporter-1.0.1.linux-amd64
 
   - name: Copy node-exporter.service
+    become: yes
     copy:
       src: files/node-exporter.service
       dest: /etc/systemd/system/node-exporter.service
